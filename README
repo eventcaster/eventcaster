@@ -1,0 +1,68 @@
+Overview
+
+Emulator supports even-injection via ECP(Emulator-Control-Panel). However, injecting sensor events via ECP is less intuitive and less convenient. Moreover, while developers inject event, simultaneously touching emulator screen is impossible. The EventCast enables developers to inject sensor and touch events more intuitively by means of real target.
+
+EventCast App in the target gathers those events and passes them to emulator controller, which converts and hands them over to Tizen Platform. It is useful for App developers who do not have a Tizen mobile device.
+
+EventCast provides three features.
+ - Touch : M aximum touch point is 10.
+ - Sensors : Accelerometer / Gyroscope / Geo-Magnetic / Proximity / Light Sensor
+ - Display: Get images of Tizen Emulator and draw them when using touch feature
+
+
+How to use EventCaster
+
+EventCaster which is the App on target communicates with Tizen E mulator (PC) by TCP/IP . It can connect to Emulator via USB or Wi-Fi.
+
+
+Prerequisites
+ 1. In case of USB, ADB is required to make a connection. If you have already installed Android SDK on the PC, ADB is located at a ‘<installed Android SDK>/sdk/platform-tools’ directory. Otherwise, you can download only ADB or install Android SDK.
+    A. If you want to install only ADB, please follow the below instructions.
+        - Linux/Mac : Download ADB and then install it in ‘/usr/bin’
+          http://code.google.com/p/adb-fastboot-install/
+        - Windows : Download ADB and then install in ‘ C: ¥ ADB’
+          http://rubenalamina.mx/custom-installers/android-adb-fastboot/
+ 2. In case of Wi-Fi , m ake sure that your a ndroid device and PC are with in the same AP.
+
+
+Install EventCaster App
+
+You can install the EventCaster from Google Play. If you download EventCaster.apk from ( https://github.com/eventcaster/eventcaster.git ), please install it manually.
+
+
+Connection between App and Emulator
+
+
+USB
+ 1. Enable “ USB debugging” in your device.
+    A. Locate “ Developer ” options
+        i.   On most devices running Android 3.2 or older, you can find the option under Settings > Applications > Development.
+        ii.  On Android 4.0 and newer, it is in Settings > Developer options.
+        iii. Note: On Android 4.2 and newer, Developer options are hidden by default.
+             To make it available, go to Settings > About phone and tap Build number seven times.
+             Return to the previous screen to find Developer options.
+    B. Enable “ USB debugging” in the option.
+ 2. Connect the device to PC via USB.
+ 3. Launch ‘EventCaster’ application.
+ 4. Start Server using default port, 7000 or input port number in the app.
+ 5. Forward a TCP port by “adb forward” command.
+    A. For example, you can forward 7000 port in the app to 1234 port in your PC. ex) adb forward tcp:1234 tcp:7000
+ 6. Launch Tizen Emulator and then Emulator Control Panel from the context menu of Emulator.
+ 7. Select a USB checkbox of EventCast tab on the Emulator Control Panel.
+ 8. Input port number you did port forward, 1234 and then click ‘Connection’ button on the ECP
+ 9. If the emulator connects to app successful ly , you can find that ‘Show Event’ button in the app is activated.
+ 10. After clicking enabled ‘Show Event’ button, you can deliver sensor or touch value to emulator.
+
+
+Wi-Fi
+
+ 1. Enable Wi-Fi on device and select Wi-Fi network
+ 2. Connect Android device to the network that a PC running emulator is connected.
+ 3. Launch ‘EventCaster’ application and then choose ‘Read WiFi’ button.
+ 4. ‘Read WiFi’ button will get IP address of connected network.
+ 5. Choose ‘Start Server’ button.
+ 6. Select a WiFi checkbox of EventCast tab on the Emulator Control Panel
+ 7. Input IP address and port number using ‘EventCaster’ application,
+    and then click ’Connect’ button on the Emulator Control Panel.
+ 8. If the emulator connects to app successful ly , you can find that ‘Show Event’ button in the app is activated.
+ 9. After clicking enabled ‘Show Event’ button, you can deliver sensor or touch value to emulator.
